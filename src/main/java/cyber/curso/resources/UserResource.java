@@ -1,7 +1,8 @@
 package cyber.curso.resources;
 
 import cyber.curso.domain.Usuario;
-import jakarta.annotation.Resource;
+import cyber.curso.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +14,12 @@ import java.util.List;
 @RestController
 public class UserResource {
   
+  @Autowired
+  private UserService service;
+  
   @GetMapping("/user")
   public ResponseEntity<List<Usuario>> busatTodos() {
-    Usuario maria = new Usuario("1", "Maria", "maria@gmail.com");
-    Usuario lucas = new Usuario("2", "Lucas", "lucas@gmail.com");
-    Usuario marcelo = new Usuario("3", "Marcelo", "marcelo@gmail.com");
-    List<Usuario> list = new ArrayList<>(Arrays.asList(maria, lucas, marcelo));
+    List<Usuario> list = service.findAll();
     return ResponseEntity.ok().body(list);
   }
 }
