@@ -1,6 +1,7 @@
 package cyber.curso.services;
 
 import cyber.curso.domain.Usuario;
+import cyber.curso.dto.UserDTO;
 import cyber.curso.repository.UserRepository;
 import cyber.curso.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,13 @@ public class UserService {
       throw new ObjectNotFoundException("Usuario não encontrado");
     }
     return user.get();
+  }
+  
+  public Usuario insert(Usuario obj){
+    return repository.insert(obj);
+  }
+  
+  public Usuario fromDTO(UserDTO objDto){
+    return new Usuario(objDto.getId(), objDto.getName(), objDto.getEmail());
   }
 }
